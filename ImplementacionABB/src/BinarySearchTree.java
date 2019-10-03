@@ -19,6 +19,11 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
     }
     private BinaryNode<T> root;
     
+    public boolean isEmpty(){
+        return(root==null);
+    }
+    
+    
     public T findMin(){
         if (isEmpty())
             throw new UnderflowException();
@@ -38,9 +43,35 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
             return -1;
         else
             return 1+Math.max(height(t.left), height(t.right));
-        
     }
     
+    private BinaryNode<T> findMax(BinaryNode<T> t){
+        if (t!=null) {
+            while(t.right!=null)
+                t=t.right;
+        return t;
+    }
+        
+    /**
+     *
+     * @param x
+     * @return
+     */
+    public boolean contains(T x){
+        return contains(x, root);
+    }
+        
+    private boolean contains(T x,BinaryNode<T> t){
+        if(t==null)
+            return false;
+        int compareResult=x.compareTo(t.element);
+        if(compareResult<0)
+            return contains(x, t.left);
+        else if(compareResult>0)
+            return contains(x, t.right);
+        else
+            return true;
+    }
             
     
 }
