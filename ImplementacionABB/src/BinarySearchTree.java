@@ -72,6 +72,67 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
         else
             return true;
     }
+        
+      public void makeEmpty(){
+        root= null;
+    }
+    
+    public boolean isEmpty(){
+        return root==null;
+    }
+    
+    public void printTree(BinaryNode x){
+        if(x!= null){
+            printTree(x.left);
+            System.out.print(x.dato);            
+            printTree(x.right);
+        }
+        
+    }
+    
+    public void insert(T x){
+        root= insert(x, root);
+    }
+    
+    private BinaryNode<T> insert(T x, BinaryNode<T> t){
+        if(t== null)
+            return new BinaryNode<>(x, null, null);
+            
+            int compareResult = x.compareTo(t.dato);
+            if(compareResult <0)
+                t.left = insert(x, t.left);
+            else if(compareResult >0)
+                t.right = insert(x, t.right);
+            else
+                ;
+        
+        return t;
+        
+    }
+    
+    public void remove(T x){
+        root= remove(x,root);
+    }
+    
+    private BinaryNode<T> remove(T x, BinaryNode<T> t){
+        if(t==null)
+            return t;
+        int compareResult= x.compareTo(t.dato);
+        if(compareResult < 0)
+            t.left = remove(x, t.left);
+        else if(compareResult >0)
+            t.right = remove(x,t.right);
+        else if(t.left != null && t.right != null){
+            t.dato = findMin(t.right).dato;
+            t.right = remove(t.dato, t.right);
+        }
+        else
+            t = (t.left != null) ? t.left : t.right;
+        
+        return t;
+    }
+    
+    
             
     
 }
