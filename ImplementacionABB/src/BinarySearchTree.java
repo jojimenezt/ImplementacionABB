@@ -1,4 +1,4 @@
-
+.
 import com.sun.org.apache.xerces.internal.util.FeatureState;
 
 /*
@@ -16,8 +16,45 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
         T element;
         BinaryNode<T> left;
         BinaryNode<T> right;
+        
+        public BinaryNode(T dato, BinaryNode<T> right, BinaryNode<T> left){
+            this.dato = dato;
+            this.right = right;
+            this.left = left;
+        }
     }
     private BinaryNode<T> root;
+    
+    public void insert(T x){
+        this.root = insert(x,root);
+    }
+    
+    public BinaryNode<T> insert(T x, BinaryNode<T> t){
+        if(t==null) return new BinaryNode<>(x,null,null);
+        
+        int compareRes = x.compareTo(t.dato);
+        
+        if(compareRes < 0) t.left = insert(x,t.left);
+        else if(compareRes > 0) t.right = insert(x,t.left);
+        
+        return t;    
+    }
+    
+    public void remove(T x){
+        root = remove(x,root);
+    }
+    
+    public void insert(T x){
+        root = insert(x,root);
+    }
+    
+    public T findMin(){
+        return findMin(root).dato;
+    }
+    
+    public T findMax(){
+        return findMax(root).dato;
+    }
     
     public boolean isEmpty(){
         return(root==null);
